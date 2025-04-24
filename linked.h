@@ -12,9 +12,9 @@
 #define Nil NULL
 #define Info(P) (P)->info
 #define Next(P) (P)->next
-#define First(L) (L).Front
+#define First(L) (L).First
 
-typedef int infotype;
+typedef char* infotype;
 typedef struct tElmtList *address;
 typedef struct tElmtList {
 	 infotype info;

@@ -36,7 +36,7 @@ address Alokasi (infotype X)
 	 P = (address) malloc (sizeof (ElmtList));
 	 if (P != Nil)		/* Alokasi berhasil */
 	 {
-	Info(P) = X;
+	Info(P) = strdup(X);
 	Next(P) = Nil;
 	 }
 	 return (P);
@@ -49,6 +49,7 @@ void DeAlokasi (address P)
 {
 	 if (P != Nil)
 	 {
+	free(Info(P));
 	free (P);
 	 }
 }
@@ -62,18 +63,16 @@ address Search (List L, infotype X)
 {
 	 /* Kamus Lokal */
 	 address P;
-	 boolean found =  false;
 	 /* algoritma */
 	 P = First(L);
-	 while ((P != Nil) && (!found))
+	 while ((P != Nil))
 	 {
-		if (Info(P) == X)
-		{	found = true; 	}
-		else
-		{	P = Next(P);	}
-	 }	/* P = Nil atau Ketemu */
-	
-	 return (P);
+		if (strcmp(P->info, X) == 0) {
+            return P;
+        }
+        P = Next(P);
+	}
+	 return Nil;
 }
 
 boolean FSearch (List L, address P)
@@ -354,12 +353,12 @@ void PrintInfo (List L)
 	address P;
 	 /* Algoritma */
 	
-	P = L.Front;
+	P = L.First;
     if (P == Nil) {
         printf("List Kosong\n");
     } else {
         while (P != Nil) {
-            printf("%d -> ", Info(P));
+            printf("%s -> ", Info(P));
             P = Next(P);
         }
         printf("NIL\n");
