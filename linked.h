@@ -26,8 +26,7 @@ typedef struct tElmtList {
 /* Setiap elemen dengan address P dapat diacu info(P) dan Next(P);  */
 /* Elemen terakhir list ===> Jika addressnya Last maka Next(Last) = Nil */
 typedef struct {
-	  address Front;
-	  address Rear;
+	  address First;
 } List;
 
 /*********** PROTOTYPE ****************/
