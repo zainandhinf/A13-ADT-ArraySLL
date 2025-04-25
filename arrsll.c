@@ -73,10 +73,76 @@ void deleteKota(ArrayKota *arr, const char *namaKota)
 }
 
 // Modul untuk menambah node warga
-void addWarga(Kota *kota, const char *namaWarga);
+void addWarga(Kota *kota, const char *namaWarga)
+{
+    addresswg namaBaru, current;
+
+    namaBaru = (addresswg)malloc(sizeof(Warga));
+    if (namaBaru == Nil) {
+        printf("Gagal alokasi memori!\n");
+        return;
+    }
+
+    namaBaru->nm = (char*)malloc(strlen(namaWarga) + 1);
+    if (namaBaru->nm == Nil) {
+        printf("Gagal alokasi memori untuk nama!\n");
+        free(namaBaru);
+        return;
+    }
+
+    strcpy(namaBaru->nm, namaWarga);
+    namaBaru->q = Nil;
+
+    if (kota->p == Nil) {
+        kota->p = namaBaru;
+    } else {
+        current = kota->p;
+
+        while (current != Nil) {
+            if (strcmp(current->nm, namaWarga) == 0) {
+                printf("Warga %s sudah ada di kota %s!\n", namaWarga, kota->kt);
+                free(namaBaru->nm);
+                free(namaBaru);
+                return;
+            }
+            if (current->q == Nil) break;
+            current = current->q;
+        }
+
+        current->q = namaBaru;
+    }
+
+    printf("Warga %s berhasil ditambahkan ke kota %s\n", namaWarga, kota->kt);
+}
+
 
 // Modul untuk menambah node warga
-void deleteWarga(Kota *kota, const char *namaWarga);
+void deleteWarga(Kota *kota, const char *namaWarga)
+{
+    addresswg current = kota->p;
+    addresswg sebelum = Nil;
+
+    while (current != Nil) {
+        if (strcmp(current->nm, namaWarga) == 0) {
+            if (sebelum == Nil) {
+                kota->p = current->q;
+            } else {
+                sebelum->q = current->q;
+            }
+
+            free(current->nm);
+            free(current);
+            printf("Warga %s berhasil dihapus dari kota %s\n", namaWarga, kota->kt);
+            return;
+        }
+
+        sebelum = current;
+        current = current->q;
+    }
+
+    printf("Warga %s tidak ditemukan di kota %s!\n", namaWarga, kota->kt);
+}
+
 
 // Modul untuk mencari kota
 boolean findKota(ArrayKota *arr, const char *namaKota)
