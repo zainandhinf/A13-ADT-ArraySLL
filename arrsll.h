@@ -49,6 +49,9 @@ void deleteWarga(Kota *kota, const char *namaWarga);
 // Modul untuk mencari kota
 boolean findKota(ArrayKota *arr, const char *namaKota);
 
+// Modul untuk mencari index kota
+int findIndexKota(ArrayKota *arr, const char *namaKota);
+
 // Modul untuk menampilkan linked list
 void displayAll(ArrayKota arr);
 

@@ -52,11 +52,9 @@ void deleteKota(ArrayKota *arr, const char *namaKota)
 {
 	int idx, i;
 	
-	idx = findKota(arr, namaKota);
-    if (idx == -1) {
-        printf("Kota %s tidak ditemukan!\n", namaKota);
-        return;
-    }
+	idx = findIndexKota(arr, namaKota);
+    
+    printf("%d", idx);
     
     DelAll((List*)&arr->data[idx].p);
     
@@ -154,6 +152,18 @@ boolean findKota(ArrayKota *arr, const char *namaKota)
         }
     }
     return false;
+}
+
+// Modul untuk mencari index kota
+int findIndexKota(ArrayKota *arr, const char *namaKota) 
+{
+    int i;
+	for (i = 0; i < arr->count; i++) {
+        if (arr->data[i].kt && strcmp(arr->data[i].kt, namaKota) == 0) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 // Modul untuk menampilkan linked list

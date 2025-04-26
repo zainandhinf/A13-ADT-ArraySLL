@@ -61,7 +61,11 @@ int main() {
                 printf("Nama Kota yang akan dihapus: ");
                 fgets(kota, MAX_NAME_LENGTH, stdin);
                 kota[strcspn(kota, "\n")] = '\0';
-                deleteKota(&arr, kota);
+                if(findKota(&arr, kota)){	
+                	deleteKota(&arr, kota);
+				} else {
+					printf("Kota %s tidak ditemukan!\n", kota);
+				}
                 break;
             }
                 
